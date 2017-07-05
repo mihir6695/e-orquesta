@@ -1,0 +1,325 @@
+
+<?php
+if($_SESSION['c_id']==NULL and $_SESSION['s_id']==NULL and $_SESSION['mul_id']==NULL)
+{
+	header('location:index.php');
+}
+?>
+
+
+<div class="main" align="center" style="width:100%;">
+<div class="project-list">
+	 	 <div class="search_box">
+			<form method="post" action="index.php?page=search_action2">
+				<input type="text" value="" name="first_name" placeholder="search" >
+				<input type="submit" name="submit" value="serch">
+			</form>
+			<?php
+		?>
+		 </div>
+		</div>	
+	<h4 style="font-family:kerla;font-size:45px;color:red;">
+	<?php echo 'Wel-Come '.$_SESSION['first_name'];?></li>
+	</h4>
+	 <div class="project-wrapper" style="overflow:hidden;">
+	   <div class="project">
+	    <div class="blog-left">
+			<div class="blog-img">
+
+							<?php
+							$sql = mysql_query("SELECT * FROM `gallery` where photo!=''");
+                            while($row = mysql_fetch_assoc($sql))
+							{ ?>
+								<div class="" style="color:black; font-size:25px; margin-left:10%; 	 width:75%; float:left;">
+			
+			
+
+							<?php
+							//SELECT * FROM Customers ORDER BY Country DESC;
+								$sql1=mysql_query("select * from `artist` ORDER BY `artist`. `s_id` ,DESC = '".$row['a_id']."'");
+								$sql2=mysql_fetch_assoc($sql1);
+							?>			
+							<a href="index.php?page=artist_myprofile_cus&s_id=<?php echo $sql2['s_id']; ?>" >
+										
+								<?php
+									echo 'upld By:arjit singh';
+								?>	
+					
+							</a>						<tr class="even gradeC">
+										
+											
+                   <td>
+
+							<?php if($row['photo']!=NULL) {?>
+							<img src="<?php echo 'admin/upload/gallery_photo/'.$row['photo'];?>"   style="margin-left:15px;border-radius:60%;"/><?php } ?>									</td> 
+								</tr>
+								<div class="comment">
+		<a href="index.php?page=like_action&s_id=<?php echo $row['id']; ?>" >
+		<span class="">
+		<?php
+		$sql1 = mysql_query("select * from `like` where s_id='".$row['id']."' AND c_id='".$_SESSION['c_id']."'");
+		$count=mysql_num_rows($sql1);
+		$row1=mysql_fetch_assoc($sql1);
+			
+			if($count>0)
+			{
+				
+					$sql2 = mysql_query("select * from `like` where s_id='".$row['id']."' AND status = 'like'");
+					$count2=mysql_num_rows($sql2);
+					
+				if($row1['status']=='like')
+				{?>
+					<img src="images/like1.png" title="likes" style="height:20; width:15%;" alt=""/>
+					<?php 
+					echo $count2." Like/s";
+						
+				}
+				else if($row1['status']=='unlike')
+				{?>
+					<img src="images/like3.png" title="likes" style="height:20;width:15%;" alt=""/>
+					<?php	
+					echo $count2." Like/s";
+					
+				}
+			}
+			else
+			{ ?>
+				<img src="web/images/b-heart.png" title="likes" style="height:20; width:50;" alt=""/> 0 Likes
+			<?php }
+		?>
+		
+		</span></a>
+						
+						
+						
+						<div class="clear"></div>
+					</div>
+			
+	    </div>
+		
+                            <?php } ?>
+		
+			</div>
+		
+			
+	    </div>
+		    <div class="blog-right">
+			<div class="blog-img">
+
+							<?php
+							$sql = mysql_query("SELECT * FROM `gallery_mul` where photo!=''");
+                            while($row = mysql_fetch_assoc($sql))
+							{ ?>
+								<div class="" style="color:black; font-size:25px; margin-left:10%; 	 width:75%; float:left;">
+			
+			
+
+							<?php
+							
+						$sql1=mysql_query("select * from artist_mul where mul_id = '".$row['m_id']."'");
+								$sql2=mysql_fetch_assoc($sql1);
+							?>			
+							<a href="index.php?page=artist_mul_profile_cus&mul_id=<?php echo $sql2['mul_id']; ?>" >
+										
+								<?php
+									echo 'upld By: '.$sql2['group_name'];
+								?>	
+					
+							</a>						<tr class="even gradeC">
+										
+											
+                   <td>
+							<?php if($row['photo']!=NULL) {?>
+							<img src="<?php echo 'admin/upload/gallery_photo_mul/'.$row['photo'];?>"  width="100%" height="50%" style="margin-left:15px;border-radius:60%;"/><?php } ?>									</td> 
+								</tr>
+								<div class="comment">
+		<a href="index.php?page=like_action_mul&mul_id=<?php echo $row['id']; ?>" >
+		<span class="">
+		<?php
+		$sql1 = mysql_query("select * from `like_mul` where mul_id='".$row['id']."' AND c_id='".$_SESSION['c_id']."'");
+		$count=mysql_num_rows($sql1);
+		$row1=mysql_fetch_assoc($sql1);
+			
+			if($count>0)
+			{
+				
+					$sql2 = mysql_query("select * from `like_mul` where mul_id='".$row['id']."' AND status = 'like'");
+					$count2=mysql_num_rows($sql2);
+					
+				if($row1['status']=='like')
+				{?>
+					<img src="images/like1.png" title="likes" style="height:20; width:15%;" alt=""/>
+					<?php 
+					echo $count2." Like/s";
+						
+				}
+				else if($row1['status']=='unlike')
+				{?>
+					<img src="images/like3.png" title="likes" style="height:20;width:15%;" alt=""/>
+					<?php	
+					echo $count2." Like/s";
+					
+				}
+			}
+			else
+			{ ?>
+				<img src="web/images/b-heart.png" title="likes" style="height:20; width:50;" alt=""/> 0 Likes
+			<?php }
+		?>
+		
+		</span></a>
+						
+						
+						
+						<div class="clear"></div>
+					</div>
+			
+	    </div>
+		
+                            <?php } ?>
+		
+			</div>
+
+			
+	    </div>
+	
+	   <div class="clear"></div>
+	   
+	 </div>
+		 <div class="project-sidebar"style="">
+	 	<!--<marquee behavior="scroll" direction="down" scrollamount="17" onmouseover="this.stop();" onmouseout="this.start();">
+		
+-->
+		
+				
+		<div>			
+				
+			
+		
+		<?php
+							$sql = mysql_query("SELECT * FROM `gallery`");
+                            while($row = mysql_fetch_assoc($sql))
+							{
+							?>
+								<ul class="even gradeC" style="margin:0px;padding:0px;">
+
+<?php									
+									$video=$row['video'];
+									if($video!='')
+									{
+										
+								
+									?>
+									
+									
+									
+									
+									 <li style="float:left;">
+									 <video  src="<?php echo 'admin/upload/gallery_video/'.$row['video'];?>" controls="controls" style="height:60%;width:143%;margin:0px 25px;" autoplay></video> 
+																			</li>
+									 <?php } ?>
+									 <?php } ?>
+									
+									
+		
+		<?php
+							$sql = mysql_query("SELECT * FROM `gallery_mul`");
+                            while($row = mysql_fetch_assoc($sql))
+							{
+							?>
+								<ul class="even gradeC" style="height:50%;">
+
+<?php					
+									$video=$row['video'];
+									if($video!='')
+									{
+										
+								
+									?>
+									
+									
+									
+									
+									 <li style="float:left;">
+									 <video  src="<?php echo 'admin/upload/gallery_video_mul/'.$row['video'];?>" controls="controls" style="height:60%;;width:148%;margin:0px 25px;"autoplay></video> 
+														</li>
+									 <?php } ?>
+									
+									
+																		
+									
+								</ul>
+								
+                          
+				
+				<?php } ?>
+			</div>				
+				
+				<!--</marquee>
+				-->
+				
+		
+	 </div>	
+	 <div class="clear"></div>
+  </div>
+ </marquee>  		
+             </div>
+			<?php
+
+$con=mysql_connect("localhost","root","");
+$db=mysql_select_db("project1",$con);
+
+ $sel="select COUNT(*) as num from `gallery_mul`";
+
+
+$res=mysql_query($sel);
+$row=mysql_fetch_assoc($res);
+ $totalpage=$row['num'];
+
+$perpage=$row['num'];
+$page=$_GET['id'];
+$endpage=2;
+     $startpage=($page -1 )* $endpage;
+
+
+$sql="select * from `gallery_mul` LIMIT $startpage,$endpage";
+$result=mysql_query($sql,$con);
+?>
+<html>
+	  <body>
+	  <table border="1px solid black">
+	  	<tr>
+			<th>id</th>
+			<th>name</th>
+		</tr>
+        <?php
+while($row1=mysql_fetch_assoc($result))
+  {
+	  
+	?>
+	<tr>
+    	<td><?php echo $row1['id']?></td>
+	<td><img src="<?php echo 'admin/upload/gallery_photo_mul/'.$row1['photo'];?>"/></td>
+	
+	</tr>										
+    
+  <?php
+    }
+	?>
+      </table>
+      </body>
+      </html>
+      <?php
+echo "<br>";    
+for($startpage=0;$startpage<=$perpage/2;$startpage++)
+{
+if($startpage)
+{   
+    ?>
+	<a href="index.php?page=home&numrec=<?php echo $row['num']; ?>&id=<?php echo $startpage;  ?>" ><?php echo $startpage ;?></a>
+   
+<?php
+}
+}	
+?>		    
+      	                                                                                            
