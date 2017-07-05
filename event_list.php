@@ -2,7 +2,7 @@
 		
 		<div id="page-title" class="clearfix">
 			
-			<a href="index.php?page=gallery_form" class="btn btn-primary">Add New</a>
+			<a href="index.php?page=event_form" class="btn btn-primary">Add New</a>
 			
 		</div> <!-- /.page-title -->
 	
@@ -27,35 +27,35 @@
 						<table class="table table-striped table-bordered table-highlight" id="example">
 							<thead>
 								<tr>
-									<th>name</th>
-                                    <th>photo</th>
-                                    <th>video</th>
-                                    <th>status</th>
+									<th>image</th>
+                                    <th>location</th>
+                                    <th>date</th>
+                                    <th>time</th>
+									<th>description</th>
+									<th>endtime</th>
 									<th>action</th>
 								</tr>
 							</thead>
 							<tbody>
 							<?php
-							$sql = mysql_query("SELECT * FROM `gallery`");
+							$sql = mysql_query("SELECT * FROM `event`");
                             while($row = mysql_fetch_assoc($sql))
 							{
 							?>
 								<tr class="even gradeC">
-									<td><?php echo $row['name'];?></td>
-                                   <td>
-											<?php if($row['photo']!=NULL) {?>
-											<img src="<?php echo '	upload/gallery_photo/'.$row['photo'];?>" style="width:60px; height:60px;"/><?php }else{?>
+								 <td>
+											<?php if($row['image']!=NULL) {?>
+											<img src="<?php echo 'upload/event_image/'.$row['image'];?>" style="width:60px; height:60px;"/><?php }else{?>
 											<img src="img/avatar.jpg">
 										<?php } ?>
-									</td> 
-									<td>
-											<?php if($row['video']!=NULL) {?>
-											<img src="<?php echo 'upload/gallery_video/'.$row['video'];?>" style="width:60px; height:60px;"/><?php }else{?>
-											<img src="img/avatar.jpg">
-										<?php } ?>
-									</td> 
-									<td><?php echo $row['status'];?></td>
-                                    <td><a href="index.php?page=gallery_form&id=<?php echo $row['id']; ?>" class="btn btn-primary">Edit</a>&nbsp;<a href="index.php?page=gallery_action&id=<?php echo $row['id']; ?>" class="btn btn-info">Delete</a></td>
+									</td>
+									<td><?php echo $row['location'];?></td>
+									<td><?php echo $row['date'];?></td>
+									<td><?php echo $row['time'];?></td>
+                                   
+									<td><?php echo $row['description'];?></td>
+									<td><?php echo $row['endtime'];?></td>
+                                    <td><a href="index.php?page=event_form&event_id=<?php echo $row['event_id']; ?>" class="btn btn-primary">Edit</a>&nbsp;<a href="index.php?page=event_action&event_id=<?php echo $row['event_id']; ?>" class="btn btn-info">Delete</a></td>
 								</tr>
                             <?php } ?>
 							</tbody>

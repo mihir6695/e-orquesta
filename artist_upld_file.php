@@ -1,29 +1,26 @@
 <?php
 //print_r($_POST); exit;
+
 if(isset($_POST['submit']))
 {	
 	$id = $_POST['id'];
-	$a_id= $_SESSION['s_id'];
-	$photo= $_FILES['photo']['name'];
 	
-	$video= $_FILES['video']['name'];
+	$upld_file= $_FILES['upld_file']['name'];
 	if($id=='')
 	{
-		move_uploaded_file($_FILES['photo']['tmp_name'],'admin/upload/gallery_photo/'.$photo);
-		move_uploaded_file($_FILES['video']['tmp_name'],'admin/upload/gallery_video/'.$video);
-		
-		$sql = mysql_query("INSERT INTO `gallery`(`a_id`,`photo`,`video`) values('$a_id','$photo','$video')");	
+		move_uploaded_file($_FILES['upld_file']['tmp_name'],'upload/artist_upld_file/'.$upld_file);
+		$sql = mysql_query("INSERT INTO `gallery`(`upld_file`) values('$upld_file')");	
 			if($sql)
 			{
-				header('location:index.php?page=artist_myprofile');	
+				header('location:index.php?page=gallery_list');	
 			}
 			else
 			{
-			header('location:index.php?page=gallery_form');
+			header('location:index.php?page=gallery_list');
 			
 			}
 	}
-	
+
 	 
 		}
 		else
@@ -33,7 +30,7 @@ if(isset($_POST['submit']))
 		
 		mysql_query("DELETE FROM `gallery` where `id`='$id'");
 		
-		header('location:index.php?page=artist_myprofile');
+		header('location:index.php?page=gallery_list');
 		}
 	
 

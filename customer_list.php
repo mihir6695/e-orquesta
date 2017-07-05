@@ -1,11 +1,6 @@
 <div class="container">
 		
-		<div id="page-title" class="clearfix">
-			
-			<a href="index.php?page=artist_form" class="btn btn-primary">Add New</a>
-			
-		</div> <!-- /.page-title -->
-	
+		
 		
 		
 		<div class="row">
@@ -29,12 +24,11 @@
 									<th>first_name</th>
 									<th>middle_name</th>
 									<th>last_name</th>
-									<th>Email</th>
-									<th>Phone No</th>
-									<th>city</th>
-                                    <th>Gender</th>
-                                    <th>Profile</th>
-									<th>fees</th>
+									<th>email</th>
+									<th>password</th>
+                                    <th>phone_no</th>
+                                    <th>gender</th>
+                                    <th>profile</th>
 									<th>action</th>
 									
 								</tr>
@@ -45,7 +39,7 @@
 							<?php
 							
 							
-							$sql = mysql_query("SELECT * FROM `artist`");
+							$sql = mysql_query("SELECT * FROM `custmore`");
 								
                             while($row = mysql_fetch_array($sql))
 							{
@@ -55,22 +49,17 @@
 									<td><?php echo $row['first_name'];?></td>
 									<td><?php echo $row['middle_name'];?></td>
 									<td><?php echo $row['last_name'];?></td>
-									<td><?php echo $row['email'];?></td>									
-									<td><?php echo $row['phone_no'];?></td>	
-									<td><?php echo $row['city'];?></td>
+									<td><?php echo $row['email'];?></td>
+									<td><?php echo $row['password'];?></td>
+									<td><?php echo $row['phone_no'];?></td>
 									<td><?php echo $row['gender'];?></td>
-						
-									 <td>
+									  <td>
 											<?php if($row['profile']!=NULL) {?>
-											<img src="<?php echo 'upload/artist_profile/'.$row['profile'];?>" style="width:60px; height:60px;"/><?php }else{?>
+											<img src="<?php echo 'upload/custmore_profile/'.$row['profile'];?>" style="width:60px; height:60px;"/><?php }else{?>
 											<img src="img/avatar.jpg">
 										<?php } ?>
 									</td> 
-
-								
-									<td><?php echo $row['fees'];?></td>
-									
-									 <td><a href="index.php?page=artist_form&s_id=<?php echo $row['s_id']; ?>" class="btn btn-primary">Edit</a>&nbsp;<a href="index.php?page=artist_action&s_id=<?php echo $row['s_id']; ?>" class="btn btn-info">Delete</a></td>
+                                     <td><a href="index.php?page=customer_action&c_id=<?php echo $row['c_id']; ?>" class="btn btn-info">Delete</a></td>
 								</tr>
                             <?php } ?>
 							</tbody>

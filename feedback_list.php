@@ -2,7 +2,7 @@
 		
 		<div id="page-title" class="clearfix">
 			
-			<a href="index.php?page=booking_form" class="btn btn-primary">Add New</a>
+			<a href="index.php?page=feedback_form" class="btn btn-primary">Add New</a>
 			
 		</div> <!-- /.page-title -->
 	
@@ -26,15 +26,14 @@
 						<table class="table table-striped table-bordered table-highlight" id="example">
 							<thead>
 								<tr>
-									<th>fees</th>
+									
 									<th>name</th>
-									<th>Email</th>
-									<th>starttime</th>
-									<th>endtime</th>
-									<th>date</th>
-									<th>address</th>
-                                    <th>phone_no</th>
+									<th>email</th>
+									<th>contact No</th>
+									<th>feedback</th>
+									<th>Status</th>
 									<th>action</th>
+                                   
 									
 								</tr>
 							</thead>
@@ -44,23 +43,24 @@
 							<?php
 							
 							
-							$sql = mysql_query("SELECT * FROM `booking`");
+							$sql = mysql_query("SELECT * FROM `feedback`");
 								
                             while($row = mysql_fetch_array($sql))
 							{
 							?>
 							
 								<tr class="even gradeC">
-									<td><?php echo $row['fees'];?></td>
+									
 									<td><?php echo $row['name'];?></td>
 									<td><?php echo $row['email'];?></td>
-									<td><?php echo $row['starttime'];?></td>									
-									<td><?php echo $row['endtime'];?></td>
-									<td><?php echo $row['date'];?></td>	
-									<td><?php echo $row['address'];?></td>
-									<td><?php echo $row['phone_no'];?></td>
-									 
-									 <td><a href="index.php?page=booking_form&book_id=<?php echo $row['book_id']; ?>" class="btn btn-primary">Edit</a>&nbsp;<a href="index.php?page=booking_action&book_id=<?php echo $row['book_id']; ?>" class="btn btn-info">Delete</a></td>
+									<td><?php echo $row['contact_no'];?></td>
+									<td><?php echo $row['feedback'];?></td>
+									<td><?php echo $row['status'];?></td>
+									
+                                     <td>
+									 <a href="index.php?page=feedback_form&feed_id=<?php echo $row['feed_id'];?>" class="btn btn-primary">Edit</a>&nbsp;
+									 <a href="index.php?page=feedback_action&feed_id=<?php echo $row['feed_id']; ?>" class="btn btn-info">Delete</a>
+									 </td>
 								</tr>
                             <?php } ?>
 							</tbody>
