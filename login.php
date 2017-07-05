@@ -1,101 +1,90 @@
-<style>
-@media (max-width: 480px)
-.contact-to input[type="email"],input[type=password]
-}
-@media (max-width: 640px)
-.contact-to input[type="email"],input[type=password] {
-    width: 27.4%;
-}
-@media (max-width: 768px)
-.contact-to input[type="email"],input[type=password] {
-    width: 25.4%;
-}
-@media (max-width: 800px)
-.contact-to input[type="email"],input[type=password] {
-    width: 26.4%;
-}
-@media (max-width: 1024px)
-.contact-to input[type="email"],input[type=password] {
-    width: 27.4%;
-}
-@media (max-width: 1280px)
-.contact-to input[type="email"],input[type=password] {
-    width: 28.4%;
-}
-@media (max-width: 1366px)
-.contact-to input[type="email"],input[type=password] {
-    width: 28.4%;
-}
-.contact-to input[type="email"],input[type=password] {
-    padding: 10px 10px;
-    width: 29.4%;
-    font-family: "Century Gothic",Arial, Helvetica, sans-serif;
-    margin: 10px 0;
-    border: 1px solid #E1E2E2;
-    color: #000;
-    background: #FFF;
-    float: left;
-    outline: none;
-    font-size: 0.89em;
-}
-input[type=text],input[type="email"] {
-    width: 100%;
-    padding: 12px 20px;
-    margin: 8px 0;
-    display: inline-block;
-    border: 1px solid #ccc;
-    box-sizing: border-box;
-}
-</style>
-
-
-
-
-
 <?php
 include("include/config.php");
-//session_start();
+session_start();
+?>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Login - Slate Admin 2.0</title>
 
-?><div class="">
-<div class="about-middle">
-		   	 <h4><span>LOGIN</span></h4>
-		   	  </div>
-</div>  
-<div class="main" style="height:500px;">	
-	 <div class="project-wrapper">
-	    <div class="wrap">
-	 	  <div class="contact">
-	 	  		<div class="cont span_2_of_contact">	
-				  <form method="post" action="index.php?page=login_action"onsubmit="return artist_form();">
-					<div>
-								<input type="radio" name="type" value="single_artist">single artist
-								<input type="radio" name="type" value="mul_artist">Band
-                                <input type="radio" name="type" value="customer">customer(user)
-                         </div>
-					<div class="contact-to">
-                    <input type="email" class="text" id="email" name="email" placeholder="email"  required>
-					
-								
-					<input type="password" class="text" name="password"id="pass" placeholder="password" minlength="6" onblur="if (this.value == '') {this.value = 'password...';}" style="margin-left: 10px" required>
-					
-					</div>
-					
-					
-					<div>
-	               		<input type="submit" class="submit" name="submit" value="submit">
-	                </div>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">   
+    
+    <!-- Styles -->
+    
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <link href="css/bootstrap-responsive.css" rel="stylesheet">
+    <link href="css/bootstrap-overrides.css" rel="stylesheet">
+    
+	<link href="css/ui-lightness/jquery-ui-1.8.21.custom.css" rel="stylesheet">
+        
+    <link href="css/slate.css" rel="stylesheet">
+    
+	<link href="css/components/signin.css" rel="stylesheet" type="text/css">   
+    
+    
+    <!-- Javascript -->
+    
+    <script src="js/jquery-1.7.2.min.js"></script>
+	<script src="js/jquery-ui-1.8.18.custom.min.js"></script>    
+	<script src="js/jquery.ui.touch-punch.min.js"></script>
+	<script src="js/bootstrap.js"></script>
+
+	<script src="js/demos/signin.js"></script>
+
+
+</head>
+
+<body>
+
+<div class="account-container login">
+	
+	<div class="content clearfix">
+		
+		<form action="login_action.php" method="post">
+		
+			<h1>Sign In</h1>		
+			
+			<div class="login-fields">
 				
-	             </form>
-				</div>
+				<p>Sign in using your registered account:</p>
+				
+				<div class="field">
+					<label for="email">email:</label>
+					<input type="text" id="email" name="email" value="" placeholder="email" class="login email-field" />
+				</div> <!-- /field -->
+				
+				<div class="field">
+					<label for="password">Password:</label>
+					<input type="password" id="password" name="password" value="" placeholder="Password" class="login password-field"/>
+				</div> <!-- /password -->
+				
+			</div> <!-- /login-fields -->
+			
+			<div class="login-actions">
+				
+				<span class="login-checkbox">
+					<input id="Field" name="Field" type="checkbox" class="field login-checkbox" value="First Choice" tabindex="4" />
+					<label class="choice" for="Field">Keep me signed in</label>
+				</span>
+									
+				<button class="button btn btn-secondary btn-large" name="submit" value="submit" type="submit">Sign In</button>
+				
+			</div> <!-- .actions -->
+			
+		</form>
+		
+	</div> <!-- /content -->
+	
+</div> <!-- /account-container -->
 
-<div>
-					<a href="index.php?page=register">
-	               		<input type="submit" class="submit" name="register" value="register">
-	                </a></div>			
-			<div class="clear"></div>				
-	</div>
-	</div>
-     </div>
-	 
-  </div>
-  
+
+<!-- Text Under Box -->
+<div class="login-extra">
+	Don't have an account? <a href="signup.html">Sign Up</a><br/>
+	Remind <a href="#">Password</a>
+</div> <!-- /login-extra -->
+
+</body>
+</html>
