@@ -1,66 +1,421 @@
-<?php
-//print_r($_POST); exit;
-//extract($_REQUEST);
-$id = $_REQUEST['id'];
-$firstname = $_REQUEST['firstname'];
-$middlename = $_REQUEST['middlename'];
-$lastname = $_REQUEST['lastname'];
-$email = $_REQUEST['email'];
-$password = $_REQUEST['password'];
-$reenterpassword = $_REQUEST['reenterpassword'];
-$gender = $_REQUEST['gender'];
-
-if(isset($_REQUEST['submit'])){	
-	
-	if(isset($id) && $id!=''){
-		$select = mysql_query("select email from customer where email='".$email."'");
-		if(mysql_num_rows($select)>0){ 
-			foreach($_REQUEST as $key=>$value){
-				$_SESSION[$key]=$value;
-			}
-			$_SESSION['errMsg'] = "Record already existing";
-			header('location:index.php?page=customer_form&id='.$id);
-		}else{
-			$sql = mysql_query("update customer set name='".$name."', email='".$email."', password='".$password."', gender='".$gender."' where id='".$i-d."'");
-			
-			if($sql){
-				$_SESSION['sucMsg'] = "Record update successfully";
-				header('location:index.php?page=customer_list');	
-			}else{
-				$_SESSION['errMsg'] = "Record updated Failed";
-				header('location:index.php?page=customer_form&id='.$id);
-			}	
-		}
-	}else{
-		
-		$select = mysql_query("select email from customer where email='".$email."'");
-		if(mysql_num_rows($select)>0){ 
-			foreach($_REQUEST as $key=>$value){
-				$_SESSION[$key]=$value;
-			}
-			$_SESSION['errMsg'] = "Record already existing";
-			header('location:index.php?page=customer_form');
-		}else{
-		
-			$sql = mysql_query("insert into customer(`name`,`email`,`password`,`reenterpassword`,`gender`,`profile`,`birthday`) values('".$name."','".$email."','".$password."','".$reenterpassword."','".$gender."','".$profile."','".$birthday."')");
-			
-			if($sql){
-				$_SESSION['sucMsg'] = "Record insert successfully";
-				header('location:index.php?page=customer_list');	
-			}else{
-				$_SESSION['errMsg'] = "Record inserted Failed";
-				header('location:index.php?page=customer_form');
-			}
-		}
+//admin-form
+function admin_form()
+{
+var name = document.getElementById('name');
+var email = document.getElementById('email');
+var pass = document.getElementById('pass');
+if(name.value=='')
+	{
+		//alert('Enter Name');
+		document.getElementById('req_name').style.display='';
+		document.getElementById('valid_name').style.display='none';
+		name.focus();
+		return false;	
 	}
-}else{
-	$sql = mysql_query("delete from customer where id='".$id."'");
-	if($sql){
-		$_SESSION['sucMsg'] = "Record delete successfully";
-		header('location:index.php?page=customer_list');	
-	}else{
-		$_SESSION['errMsg'] = "Record deleted Failed";
-		header('location:index.php?page=customer_list');
+else if(name.value.search(/^[A-Za-z ]+$/))
+	{
+		document.getElementById('req_name').style.display='none';
+		document.getElementById('valid_name').style.display='';
+		name.focus();
+		return false;
+	}
+	else
+	{
+		document.getElementById('req_name').style.display='none';
+		document.getElementById('valid_name').style.display='none';
+	}
+	if(email.value=='')
+	{
+		//alert('Enter Name');
+		document.getElementById('req_email').style.display='';
+		document.getElementById('valid_email').style.display='none';
+		email.focus();
+		return false;	
+	}
+else if(email.value.search(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}.$/i))
+	{
+		document.getElementById('req_email').style.display='none';
+		document.getElementById('valid_email').style.display='';
+		email.focus();
+		return false;
+	}
+	else
+	{
+		document.getElementById('req_email').style.display='none';
+		document.getElementById('valid_email').style.display='none';
+	}
+	if(pass.value=="")
+	{
+		document.getElementById('req_pass').style.display='';
+		document.getElementById('valid_pass').style.display='none';
+		pass.focus();
+		return false;0
+	}
+	else if(pass.value.length<6)
+	{
+		document.getElementById('req_pass').style.display='none';
+		document.getElementById('valid_pass').style.display='';
+		pass.focus();
+		return false;
 	}
 }
-?>
+//customer form 
+function customer_form()
+{
+	
+var fname = document.getElementById('fname');
+var mname = document.getElementById('mname');
+var lname = document.getElementById('lname');
+var email = document.getElementById('email');
+var pass = document.getElementById('pass');
+var no = document.getElementById('no');
+if(fname.value=='')
+	{
+		//alert('Enter Name');
+		document.getElementById('req_fname').style.display='';
+		document.getElementById('valid_fname').style.display='none';
+		fname.focus();
+		return false;	
+	}
+else if(fname.value.search(/^[A-Za-z ]+$/))
+	{
+		document.getElementById('req_fname').style.display='none';
+		document.getElementById('valid_fname').style.display='';
+		fname.focus();
+		return false;
+	}
+	else
+	{
+		document.getElementById('req_fname').style.display='none';
+		document.getElementById('valid_fname').style.display='none';
+	}
+	if(mname.value=='')
+	{
+		//alert('Enter Name');
+		document.getElementById('req_mname').style.display='';
+		document.getElementById('valid_mname').style.display='none';
+		mname.focus();
+		return false;	
+	}
+else if(mname.value.search(/^[A-Za-z ]+$/))
+	{
+		document.getElementById('req_mname').style.display='none';
+		document.getElementById('valid_mname').style.display='';
+		mname.focus();
+		return false;
+	}
+	else
+	{
+		document.getElementById('req_mname').style.display='none';
+		document.getElementById('valid_mname').style.display='none';
+	}
+	
+   if(lname.value=='')
+	{
+		//alert('Enter Name');
+		document.getElementById('req_lname').style.display='';
+		document.getElementById('valid_lname').style.display='none';
+		lname.focus();
+		return false;	
+	}
+  else if(lname.value.search(/^[A-Za-z ]+$/))
+	{
+		document.getElementById('req_lname').style.display='none';
+		document.getElementById('valid_lname').style.display='';
+		lname.focus();
+		return false;
+	}
+	else
+	{
+		document.getElementById('req_lname').style.display='none';
+		document.getElementById('valid_lname').style.display='none';
+	}
+	if(email.value=='')
+	{
+		//alert('Enter Name');
+		document.getElementById('req_email').style.display='';
+		document.getElementById('valid_email').style.display='none';
+		email.focus();
+		return false;	
+	}
+else if(email.value.search(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}.$/i))
+	{
+		document.getElementById('req_email').style.display='none';
+		document.getElementById('valid_email').style.display='';
+		email.focus();
+		return false;
+	}
+	else
+	{
+		document.getElementById('req_email').style.display='none';
+		document.getElementById('valid_email').style.display='none';
+	}
+	if(pass.value=="")
+	{
+		document.getElementById('req_pass').style.display='';
+		document.getElementById('valid_pass').style.display='none';
+		pass.focus();
+		return false;0
+	}
+	else if(pass.value.length<6)
+	{
+		document.getElementById('req_pass').style.display='none';
+		document.getElementById('valid_pass').style.display='';
+		pass.focus();
+		return false;
+	}
+	if(no.value=="")
+	{
+		document.getElementById('req_no').style.display='';
+		document.getElementById('valid_no').style.display='none';
+		no.focus();
+		return false;0
+	}
+	else if(no.value.length<10)
+	{
+		document.getElementById('req_no').style.display='none';
+		document.getElementById('valid_no').style.display='';
+		no.focus();
+		return false;
+	}
+	}
+//single aritist form 
+function artist_form()
+{
+	
+var fname = document.getElementById('fname');
+var mname = document.getElementById('mname');
+var lname = document.getElementById('lname');
+var email = document.getElementById('email');
+var pass = document.getElementById('pass');
+var no = document.getElementById('no');
+var fees = document.getElementById('fees');
+if(fname.value=='')
+	{
+		//alert('Enter Name');
+		document.getElementById('req_fname').style.display='';
+		document.getElementById('valid_fname').style.display='none';
+		fname.focus();
+		return false;	
+	}
+else if(fname.value.search(/^[A-Za-z ]+$/))
+	{
+		document.getElementById('req_fname').style.display='none';
+		document.getElementById('valid_fname').style.display='';
+		fname.focus();
+		return false;
+	}
+	else
+	{
+		document.getElementById('req_fname').style.display='none';
+		document.getElementById('valid_fname').style.display='none';
+	}
+	if(mname.value=='')
+	{
+		//alert('Enter Name');
+		document.getElementById('req_mname').style.display='';
+		document.getElementById('valid_mname').style.display='none';
+		mname.focus();
+		return false;	
+	}
+else if(mname.value.search(/^[A-Za-z ]+$/))
+	{
+		document.getElementById('req_mname').style.display='none';
+		document.getElementById('valid_mname').style.display='';
+		mname.focus();
+		return false;
+	}
+	else
+	{
+		document.getElementById('req_mname').style.display='none';
+		document.getElementById('valid_mname').style.display='none';
+	}
+	
+   if(lname.value=='')
+	{
+		//alert('Enter Name');
+		document.getElementById('req_lname').style.display='';
+		document.getElementById('valid_lname').style.display='none';
+		lname.focus();
+		return false;	
+	}
+  else if(lname.value.search(/^[A-Za-z ]+$/))
+	{
+		document.getElementById('req_lname').style.display='none';
+		document.getElementById('valid_lname').style.display='';
+		lname.focus();
+		return false;
+	}
+	else
+	{
+		document.getElementById('req_lname').style.display='none';
+		document.getElementById('valid_lname').style.display='none';
+	}
+	if(email.value=='')
+	{
+		//alert('Enter Name');
+		document.getElementById('req_email').style.display='';
+		document.getElementById('valid_email').style.display='none';
+		email.focus();
+		return false;	
+	}
+else if(email.value.search(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}.$/i))
+	{
+		document.getElementById('req_email').style.display='none';
+		document.getElementById('valid_email').style.display='';
+		email.focus();
+		return false;
+	}
+	else
+	{
+		document.getElementById('req_email').style.display='none';
+		document.getElementById('valid_email').style.display='none';
+	}
+	if(pass.value=="")
+	{
+		document.getElementById('req_pass').style.display='';
+		document.getElementById('valid_pass').style.display='none';
+		pass.focus();
+		return false;0
+	}
+	else if(pass.value.length<6)
+	{
+		document.getElementById('req_pass').style.display='none';
+		document.getElementById('valid_pass').style.display='';
+		pass.focus();
+		return false;
+	}
+	if(no.value=="")
+	{
+		document.getElementById('req_no').style.display='';
+		document.getElementById('valid_no').style.display='none';
+		no.focus();
+		return false;0
+	}
+	else if(no.value.length<10)
+	{
+		document.getElementById('req_no').style.display='none';
+		document.getElementById('valid_no').style.display='';
+		no.focus();
+		return false;
+	}
+	if(fees.value=="")
+	{
+		document.getElementById('req_fees').style.display='';
+		document.getElementById('valid_fees').style.display='none';
+		fees.focus();
+		return false;0
+	}
+	
+	}
+//mul aritist form 
+function artist_mul_form()
+{
+	
+var group_name = document.getElementById('group_name');
+var email = document.getElementById('email');
+var pass = document.getElementById('pass');
+var no = document.getElementById('no');
+var fees = document.getElementById('fees');
+//var group_member=document.getElementById('group_member');
+	if(group_name.value=='')
+		{
+			//alert('Enter Name');
+			document.getElementById('req_group_name').style.display='';
+			document.getElementById('valid_group_name').style.display='none';
+			group_name.focus();
+			return false;	
+		}
+
+	
+	if(email.value=='')
+	{
+		//alert('Enter Name');
+		document.getElementById('req_email').style.display='';
+		document.getElementById('valid_email').style.display='none';
+		email.focus();
+		return false;	
+	}
+else if(email.value.search(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}.$/i))
+	{
+		document.getElementById('req_email').style.display='none';
+		document.getElementById('valid_email').style.display='';
+		email.focus();
+		return false;
+	}
+	else
+	{
+		document.getElementById('req_email').style.display='none';
+		document.getElementById('valid_email').style.display='none';
+	}
+	if(pass.value=="")
+	{
+		document.getElementById('req_pass').style.display='';
+		document.getElementById('valid_pass').style.display='none';
+		pass.focus();
+		return false;0
+	}
+	else if(pass.value.length<6)
+	{
+		document.getElementById('req_pass').style.display='none';
+		document.getElementById('valid_pass').style.display='';
+		pass.focus();
+		return false;
+	*}
+	if(no.value=="")
+	{
+		document.getElementById('req_no').style.display='';
+		document.getElementById('valid_no').style.display='none';
+		no.focus();
+		return false;0
+	}
+	else if(no.value.length<10)
+	{
+		document.getElementById('req_no').style.display='none';
+		document.getElementById('valid_no').style.display='';
+		no.focus();
+		return false;
+	}
+	if(fees.value=="")
+	{
+		document.getElementById('req_fees').style.display='';
+		document.getElementById('valid_fees').style.display='none';
+		fees.focus();
+		return false;0
+	}
+	/*if(group_member.value=='')
+		{
+			//alert('Enter Name');
+			document.getElementById('req_group_member').style.display='';
+			document.getElementById('valid_group_member').style.display='none';
+			group_member.focus();
+			return false;	
+		}
+	*/
+	}
+	//feedback
+	
+function feedback_form()
+{
+var name = document.getElementById('name');
+if(name.value=='')
+	{
+		//alert('Enter Name');
+		document.getElementById('req_name').style.display='';
+		document.getElementById('valid_name').style.display='none';
+		name.focus();
+		return false;	
+	}
+else if(name.value.search(/^[A-Za-z ]+$/))
+	{
+		document.getElementById('req_name').style.display='none';
+		document.getElementById('valid_name').style.display='';
+		name.focus();
+		return false;
+	}
+	else
+	{
+		document.getElementById('req_name').style.display='none';
+		document.getElementById('valid_name').style.display='none';
+	}
+}
